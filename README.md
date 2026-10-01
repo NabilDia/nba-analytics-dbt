@@ -13,7 +13,7 @@ match×équipe, et ~219 000 tirs individuels sur la même saison) sont ingérée
 de performance par équipe et analyse d'efficacité au tir par zone.
 
 Les statistiques de matchs/équipes réutilisent les données déjà collectées par le projet
-[NBA-Game-Data](https://github.com/NabilDia) (via `nba_api`, stockées en SQLite). Les tirs
+[NBA-Game-Data](https://github.com/NabilDia/NBA-Game-Data) (via `nba_api`, stockées en SQLite). Les tirs
 individuels (coordonnées x/y, zone, réussite) n'existaient dans aucune donnée existante : ils
 ont été récupérés spécifiquement pour ce projet via l'endpoint `ShotChartDetail` de `nba_api`
 (voir `scripts/fetch_shots.py`), sur les 30 équipes de la saison 2025-26.
