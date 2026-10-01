@@ -1,0 +1,58 @@
+version: 2
+
+models:
+  - name: dim_team
+    description: "Dimension equipe : identite + profil de performance de la saison la plus recente."
+    columns:
+      - name: team_id
+        description: Cle primaire de la dimension equipe.
+        data_tests:
+          - unique
+          - not_null
+      - name: conference
+        description: Conference de l'equipe (Est/Ouest).
+        data_tests:
+          - accepted_values:
+              values: ['East', 'West']
+      - name: division
+
+  - name: fct_game
+    description: Fait match, grain equipe x match (une ligne par equipe par match jouee).
+    columns:
+      - name: game_id
+        description: Identifiant du match.
+        data_tests:
+          - not_null
+      - name: team_id
+        description: Equipe concernee par cette ligne.
+        data_tests:
+          - not_null
+          - relationships:
+              to: ref('dim_team')
+              field: team_id
+      - name: is_win
+        data_tests:
+          - accepted_values:
+              values: [true, false]
+    data_tests:
+      - dbt_utils.unique_combination_of_columns:
+          combination_of_columns:
+            - game_id
+            - team_id
+
+  - name: fct_shot_efficiency
+    description: >
+      Efficacite au tir agregee par equipe, saison et zone de tir
+      (nombre de tirs tentes/reussis, pourcentage de reussite).
+    columns:
+      - name: team_id
+        data_tests:
+          - not_null
+          - relationships:
+              to: ref('dim_team')
+              field: team_id
+      - name: shot_zone_basic
+        data_tests:
+          - not_null
+      - name: fg_pct
+        description: Pourcentage de reussite au tir (shots_made / shots_attempted), doit rester dans [0, 1].

@@ -1,0 +1,15 @@
+services:
+  postgres:
+    image: postgres:16
+    container_name: dbt-nba-pg
+    environment:
+      POSTGRES_USER: dbt_user
+      POSTGRES_PASSWORD: dbt_password
+      POSTGRES_DB: nba_analytics
+    ports:
+      - "5544:5432"
+    volumes:
+      - dbt_nba_pgdata:/var/lib/postgresql/data
+
+volumes:
+  dbt_nba_pgdata:

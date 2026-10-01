@@ -1,0 +1,40 @@
+version: 2
+
+sources:
+  - name: raw
+    description: Donnees brutes chargees depuis NBA-Game-Data (games/teams) et nba_api ShotChartDetail (shots).
+    schema: raw
+    tables:
+      - name: team_game_stats
+        description: >
+          Log de matchs au grain equipe x match (une ligne par equipe par match),
+          issu de team_stats_history (NBA-Game-Data), multi-saisons.
+        loaded_at_field: "to_date(game_date, 'MM/DD/YYYY')"
+        freshness:
+          warn_after: {count: 400, period: day}
+          error_after: {count: 800, period: day}
+        columns:
+          - name: game_id
+            description: Identifiant du match (partage entre les deux equipes).
+          - name: team_id
+            description: Identifiant de l'equipe.
+
+      - name: team_advanced_stats
+        description: >
+          Statistiques avancees par equipe par saison (ratings offensif/defensif,
+          pace, etc.), issu de team_advanced_history (NBA-Game-Data).
+        columns:
+          - name: team_id
+            description: Identifiant de l'equipe.
+          - name: season
+            description: Saison (ex. 2025-26).
+
+      - name: shots
+        description: >
+          Tirs individuels (un tir par ligne) recuperes via nba_api ShotChartDetail,
+          pour toutes les equipes sur une saison.
+        columns:
+          - name: game_id
+            description: Identifiant du match.
+          - name: team_id
+            description: Identifiant de l'equipe qui a tente le tir.

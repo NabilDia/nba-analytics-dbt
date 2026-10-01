@@ -1,0 +1,14 @@
+version: 2
+
+seeds:
+  - name: team_reference
+    description: Table de reference statique (30 lignes) mappant chaque team_id a sa conference et sa division.
+    columns:
+      - name: team_id
+        data_tests:
+          - unique
+          - not_null
+      - name: conference
+        data_tests:
+          - accepted_values:
+              values: ['East', 'West']

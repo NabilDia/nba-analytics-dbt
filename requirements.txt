@@ -1,0 +1,6 @@
+dbt-core==1.8.8
+dbt-postgres==1.8.2
+nba_api
+pandas
+SQLAlchemy
+psycopg2-binary

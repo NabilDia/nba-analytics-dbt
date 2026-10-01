@@ -1,0 +1,12 @@
+.venv/
+__pycache__/
+*.pyc
+
+target/
+dbt_packages/
+logs/
+profiles.yml
+
+data/raw/*.csv
+
+.DS_Store

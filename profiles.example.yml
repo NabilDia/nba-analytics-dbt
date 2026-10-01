@@ -1,0 +1,12 @@
+nba_analytics:
+  target: dev
+  outputs:
+    dev:
+      type: postgres
+      host: localhost
+      port: 5544
+      user: dbt_user
+      password: dbt_password
+      dbname: nba_analytics
+      schema: dbt_dev
+      threads: 4
